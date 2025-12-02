@@ -174,6 +174,7 @@ SELECT
     qtd_movimentos,
     foi_julgado
 FROM datajud_amostra;
+```
 
 Exportada via:
 
