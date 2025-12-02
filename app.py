@@ -119,22 +119,49 @@ def main():
         st.plotly_chart(fig3, use_container_width=True)
 
     # ==============================
-    # 🤖 PÁGINA 3 – MODELO
+    # 🤖 PÁGINA 3 – ML + COMPARAÇÃO DE MODELOS
     # ==============================
     elif page == "🤖 Predição com ML":
         st.title("🤖 Predição – Foi Julgado ou Não?")
 
+        # -----------------------------------------------------------
+        # 🔥 NOVA SEÇÃO: Comparação de Modelos
+        # -----------------------------------------------------------
+        st.markdown("""
+        ---
+        ## 📊 Comparação de Modelos de Machine Learning
+        A tabela e o gráfico abaixo apresentam as métricas dos modelos treinados,
+        permitindo comparar desempenho entre Regressão Logística e Random Forest.
+        ---
+        """)
+
+        metrics_path = "models/model_metrics.csv"
+
+        if os.path.exists(metrics_path):
+            metrics_df = pd.read_csv(metrics_path)
+
+            st.dataframe(metrics_df, use_container_width=True)
+
+            fig_metrics = px.bar(
+                metrics_df.melt(id_vars="modelo", var_name="métrica", value_name="valor"),
+                x="métrica",
+                y="valor",
+                color="modelo",
+                barmode="group",
+                title="Comparação das Métricas dos Modelos"
+            )
+            st.plotly_chart(fig_metrics, use_container_width=True)
+
+        else:
+            st.warning("⚠️ Arquivo de métricas não encontrado em `models/model_metrics.csv`. "
+                       "Execute novamente `modeling.py` para gerar as métricas.")
+
+        # -----------------------------------------------------------
+
         st.markdown("""
         ---
         ## 🧩 **Modelo Preditivo**
-
         Preencha os campos abaixo para gerar uma previsão automática.
-        O modelo foi treinado com a base amostral e utiliza:
-        - Tribunal  
-        - Grau  
-        - Classe processual  
-        - Quantidade total de movimentos  
-
         ---
         """)
 
