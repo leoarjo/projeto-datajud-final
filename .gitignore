@@ -1,0 +1,17 @@
+# Virtual env
+.venv/
+venv/
+env/
+
+# Dados pesados
+data/raw/
+data/processed/
+
+# Modelos
+models/*.pkl
+models/*.h5
+__pycache__/
+
+# Arquivos temporários
+*.pyc
+.DS_Store
